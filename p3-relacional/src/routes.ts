@@ -7,6 +7,7 @@ const routes = Router()
 
 routes.post('/create/user', new UserControler().create)
 routes.get('/get/user', new UserControler().findOneByID)
+routes.get('/get/alluser', new UserControler().findMany)
 
 routes.get('/create/task', new TasksControler().create)
 routes.get('/get/task', new TasksControler().findOneByID)

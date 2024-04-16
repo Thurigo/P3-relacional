@@ -31,4 +31,15 @@ export class UserControler{
             return res.status(error);
         }
     }
+
+    async findMany (req: Request, res: Response){
+        try{ 
+            const usuario = await userRepositorio.find()
+
+            return res.status(200).json(usuario)
+        }catch (error) {
+            return res.status(error);
+        }
+    }
+
 }
