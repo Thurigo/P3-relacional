@@ -5,7 +5,7 @@ const cluster = require("cluster");
 const os = require("node:os")
 
 const runPrimaryProcess = () => {
-    const processCount = 4
+    const processCount = 8
     console.log(`Primary ${process.pid} is running`)
     console.log(`Forking Server With ${processCount} process \n`)
 
