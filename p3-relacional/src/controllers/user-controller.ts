@@ -8,11 +8,13 @@ import { get } from "http";
 export class UserControler{
 
     async create(req: Request, res: Response){
+        const userBody = req.body; 
+        console.log(userBody);
       
         try {
-            const newUser = userRepositorio.create({nome:req.body.nome, email:req.body.email , peso:req.body.peso, senha:req.body.senha})
+            const newUser = userRepositorio.create(userBody)
             await userRepositorio.save(newUser)
-            console.log(newUser)
+            // console.log(newUser)
             return res.status(201).json(newUser)    
         }catch (error){
             return res.status(error)
@@ -21,9 +23,10 @@ export class UserControler{
 
     async findOneByID (req: Request, res: Response){
         try{
+            const userBody = req.body; 
             // const getUser = userRepositorio.findOneById({id:req.body.id})
             // console.table(req.body)
-            const usuario = await userRepositorio.findOneBy({id:req.body.id})
+            const usuario = await userRepositorio.findOneBy({id:userBody.id})
             // console.table(usuario)
             return res.status(200).json(usuario)
 
@@ -43,3 +46,4 @@ export class UserControler{
     }
 
 }
+//atualizar e editar 
