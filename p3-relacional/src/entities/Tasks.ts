@@ -2,6 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, NumericType, ManyToMany, ManyTo
 import { Categoria } from "./Categorias"
 import { User } from "./Users"
 
+export type status = "CONCLUIDA" | "ANDAMENTO" | "PENDENTE";
 @Entity('tasks')
 export class Tasks{
 
@@ -24,8 +25,12 @@ export class Tasks{
     @Column({nullable:true})//opcional //TALVEZ tenha que ligar com categoria
     categoria:string
 
-    @Column() // pendente-em andamento-concluida
-    staus:string 
+    @Column({
+        type:"enum",
+        enum:["CONCLUIDA" , "ANDAMENTO" , "PENDENTE"],
+        default:"PENDENTE"
+    }) 
+    staus:status 
 
     @ManyToOne(()=> User, user => user.tasks) //usuário válido
     @JoinColumn({name: 'user_id'})
