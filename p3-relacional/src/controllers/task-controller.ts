@@ -66,6 +66,8 @@ export class TasksControler {
 
             console.table(resultado)
             const task = await taksRepositorio.findOneBy({ id: resultado.id })
+            if (!task)
+                return res.status(403).json('Não encontrado')
             console.table(task)
 
             const upadateTaks = await taksRepositorio.save(Object.assign(task, resultado))
