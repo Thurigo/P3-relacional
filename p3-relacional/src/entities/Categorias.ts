@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, NumericType, ManyToOne, JoinColumn } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, NumericType, ManyToOne, JoinColumn, OneToOne, OneToMany } from "typeorm"
 import { User } from "./Users"
+import { Tasks } from "./Tasks"
 
 @Entity('categorias')
 export class Categoria {
@@ -8,7 +9,7 @@ export class Categoria {
     id:number
 
     @Column()
-    nome:string
+    name:string
     
     @Column() // identificar visualmente 
     cor:string
@@ -16,4 +17,7 @@ export class Categoria {
     @ManyToOne(()=> User, user => user.categorias) //usuário válido
     @JoinColumn({name: 'user_id'})
     User:User 
+
+    @OneToMany(() => Tasks, task => task.categoria)
+    task:Tasks[]
 }

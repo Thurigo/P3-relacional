@@ -22,9 +22,6 @@ export class Tasks{
     @Column()
     tipo:string
 
-    @Column({nullable:true})//opcional //TALVEZ tenha que ligar com categoria
-    categoria:string
-
     @Column({
         type:"enum",
         enum:["CONCLUIDA" , "ANDAMENTO" , "PENDENTE"],
@@ -35,6 +32,10 @@ export class Tasks{
     @ManyToOne(()=> User, user => user.tasks) //usuário válido
     @JoinColumn({name: 'user_id'})
     User:User 
+
+    @ManyToOne(() => Categoria, categoria => categoria.id, { nullable: true })
+    @JoinColumn({name:'categoria_id'})//opcional //TALVEZ tenha que ligar com categoria
+    categoria:Categoria
 
 
 }

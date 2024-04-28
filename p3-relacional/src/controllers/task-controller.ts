@@ -10,10 +10,8 @@ export class TasksControler {
 
     async create(req: Request, res: Response) {
         try {
-            const resultado = req.body;
-
-            const newTask = taksRepositorio.create(resultado)
-            console.log(newTask)
+            const newTask = taksRepositorio.create(req.body)
+            console.table(newTask)
 
             await taksRepositorio.save(newTask)
             console.log(newTask)
@@ -26,10 +24,10 @@ export class TasksControler {
     async findOneByID(req: Request, res: Response) {
         try {
             // const getUser = userRepositorio.findOneById({id:req.body.id})
-            const resultado = req.body;
+            const resultado = await Number(req.query.id);
 
             console.table(resultado)
-            const task = await taksRepositorio.findOneBy({ id: resultado.id })
+            const task = await taksRepositorio.findOneBy({ id: resultado })
             console.table(task)
             return res.status(200).json(task)
 
@@ -38,9 +36,9 @@ export class TasksControler {
         }
     }
 
-    async findMany(req: Request, res: Response) {
+    async UserfindMany(req: Request, res: Response) {
         try {
-            const resultado = req.body;
+            const resultado = await Number(req.query.id);
             console.table(req.body);
             const alltask = await taksRepositorio.find(
                 {
@@ -49,7 +47,7 @@ export class TasksControler {
                     // },
                     where: {
                         User: {
-                            id: resultado.User
+                            id: resultado
                         }
                     }
                 }
@@ -60,8 +58,25 @@ export class TasksControler {
         }
     }
 
-    async putTask(req: Request, res: Response){
-        try{
+    async findMany() {
+        try {
+
+
+            const alltask = await taksRepositorio.find(
+                {
+                    relations: {
+                        categoria: true
+                    }
+                }
+            )
+            return alltask
+        } catch (error) {
+            console.error(error); // Log the error for debugging purposes
+        }
+    }
+
+    async putTask(req: Request, res: Response) {
+        try {
             const resultado = req.body;
 
             console.table(resultado)
@@ -73,25 +88,13 @@ export class TasksControler {
             const upadateTaks = await taksRepositorio.save(Object.assign(task, resultado))
             return res.status(200).json(upadateTaks)
 
-
-            // task.titulo = (resultado.titulo != task.titulo && task.titulo ) ? resultado.titulo :  task.titulo
-            // task.dataStart = (resultado.dataStart != task.dataStart && task.dataStart ) ? resultado.dataStart :  task.dataStart
-            // task.dataClose = (resultado.dataClose != task.dataClose && task.dataClose ) ? resultado.dataClose :  task.dataClose
-            // task.tipo = (resultado.tipo != task.tipo && task.tipo ) ? resultado.tipo :  task.tipo
-            // task.categoria = (resultado.categoria != task.categoria && task.categoria ) ? resultado.categoria :  task.categoria
-            // task.User = (resultado.User != task.User && task.User ) ? resultado.User :  task.User
-            
-            // vai para o service depois
-            
-            //
-
-        }catch (error){ 
+        } catch (error) {
             return res.status(400).json('Deu ruim')
         }
     }
 
-    async deleteTask(req: Request, res: Response){
-        try{
+    async deleteTask(req: Request, res: Response) {
+        try {
             const resultado = req.body
 
             const task = await taksRepositorio.findOneBy({ id: resultado.id });
@@ -103,7 +106,7 @@ export class TasksControler {
 
 
             return res.status(200).json('deletado')
-        }catch (error){
+        } catch (error) {
             return res.status(404).json('deu ruim')
         }
     }
