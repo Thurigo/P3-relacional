@@ -24,7 +24,7 @@ export class TasksControler {
     async findOneByID(req: Request, res: Response) {
         try {
             // const getUser = userRepositorio.findOneById({id:req.body.id})
-            const resultado = await Number(req.query.id);
+            const resultado =  Number(req.query.id);
 
             console.table(resultado)
             const task = await taksRepositorio.findOneBy({ id: resultado })

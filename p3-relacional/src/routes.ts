@@ -26,8 +26,12 @@ routes.get('/get/ALL-categoria', new CategoriaControler().findManyUser)
 
 
 
-//Service Routes
+//Service Routes Array
 
 routes.get('/get/filter/categoria', new TaskService().filterCategoria)
+routes.get('/get/filter/categoria', new TaskService().filterStatus)
+
+//Service Db
 routes.get('/get/alltask', new TaskService().findmany)
+
 export default routes
