@@ -23,7 +23,6 @@ export class TasksControler {
 
     async findOneByID(req: Request, res: Response) {
         try {
-            // const getUser = userRepositorio.findOneById({id:req.body.id})
             const resultado =  Number(req.query.id);
 
             console.table(resultado)
@@ -36,26 +35,26 @@ export class TasksControler {
         }
     }
 
-    async UserfindMany(req: Request, res: Response) {
-        try {
-            const resultado = await Number(req.query.id);
-            console.table(req.body);
+    async UserfindMany(req: number) {
+        
+        try{
+            
+            
             const alltask = await taksRepositorio.find(
                 {
-                    // relations: {
-                    //     User: true
-                    // },
-                    where: {
+        
+                        where: {
                         User: {
-                            id: resultado
+                            id: req
                         }
                     }
                 }
             )
-            return res.status(200).json(alltask)
-        } catch (error) {
-            return res.status(404)
+            return alltask
+        }catch(error){
+            console.log(error)
         }
+       
     }
 
     async findMany() {
@@ -71,7 +70,7 @@ export class TasksControler {
             )
             return alltask
         } catch (error) {
-            console.error(error); // Log the error for debugging purposes
+            console.error(error); 
         }
     }
 

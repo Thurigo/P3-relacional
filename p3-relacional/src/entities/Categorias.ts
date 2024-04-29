@@ -11,10 +11,10 @@ export class Categoria {
     @Column()
     name:string
     
-    @Column() // identificar visualmente 
+    @Column() 
     cor:string
     
-    @ManyToOne(()=> User, user => user.categorias) //usuário válido
+    @ManyToOne(()=> User, user => user.categorias) 
     @JoinColumn({name: 'user_id'})
     User:User 
 

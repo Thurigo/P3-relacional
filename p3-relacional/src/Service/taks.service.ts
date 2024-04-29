@@ -15,7 +15,7 @@ export class TaskService {
             console.log(filter)
             return res.status(200).json(filter)
         } catch {
-            return res.status(500).json({ message: 'Erro ao buscar tarefas.' }); // Return a meaningful error message
+            return res.status(500).json({ message: 'Erro ao buscar tarefas.' }); 
 
         }
     }
@@ -23,10 +23,10 @@ export class TaskService {
     async findmany(req: Request, res: Response) {
         try {
 
-            const unfilter = await new TasksControler().findMany()
-            return res.status(200).json(unfilter)
+            const finded = await new TasksControler().findMany()
+            return res.status(200).json(finded)
         } catch {
-            return res.status(500).json({ message: 'Erro ao buscar tarefas.' }); // Return a meaningful error message
+            return res.status(500).json({ message: 'Erro ao buscar tarefas.' }); 
 
         }
     }
@@ -41,7 +41,7 @@ export class TaskService {
             console.log(filter)
             return res.status(200).json(filter)
         } catch {
-            return res.status(500).json({ message: 'Erro ao buscar tarefas.' }); // Return a meaningful error message
+            return res.status(500).json({ message: 'Erro ao buscar tarefas.' }); 
 
         }
     }
@@ -57,10 +57,25 @@ export class TaskService {
             console.log(filter)
             return res.status(200).json(filter)
         } catch {
-            return res.status(500).json({ message: 'Erro ao buscar tarefas.' }); // Return a meaningful error message
+            return res.status(500).json({ message: 'Erro ao buscar tarefas.' }); 
 
         }
     }
+
+    async avgTaskcomplete(req: Request, res: Response) {
+        try {
+            const all = await new TasksControler().findMany()
+            const complete = all.filter((task) => task.staus && task.staus === 'CONCLUIDA')
+
+            return res.status(200).json((complete.length/all.length))
+
+
+        } catch (error) {
+            res.status(500).json('deu ruim')
+        }
+
+    }
+
 
 
 

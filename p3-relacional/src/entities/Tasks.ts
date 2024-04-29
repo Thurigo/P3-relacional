@@ -12,6 +12,9 @@ export class Tasks{
 
     @Column()
     titulo:string 
+    
+    @Column()
+    descricao:string 
 
     @Column()
     dataStart:Date
@@ -29,13 +32,11 @@ export class Tasks{
     }) 
     staus:status 
 
-    @ManyToOne(()=> User, user => user.tasks) //usuário válido
+    @ManyToOne(()=> User, user => user.tasks) 
     @JoinColumn({name: 'user_id'})
     User:User 
 
-    @ManyToOne(() => Categoria, categoria => categoria.id, { nullable: true })
-    @JoinColumn({name:'categoria_id'})//opcional //TALVEZ tenha que ligar com categoria
+    @ManyToOne(() => Categoria, categoria => categoria.id, { nullable: true } )
+    @JoinColumn({name:'categoria_id'})
     categoria:Categoria
-
-
 }

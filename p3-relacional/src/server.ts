@@ -10,8 +10,8 @@ AppDataSource.initialize().then(async () => {
     app.use(express.json())    
 
     app.use(routes)
+    // console.log('Tentativa')
     return app.listen(3000)
-
 
 
 
